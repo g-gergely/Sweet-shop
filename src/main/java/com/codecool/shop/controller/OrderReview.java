@@ -24,26 +24,12 @@ public class OrderReview extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Production code
-//        HttpSession session = req.getSession(true);
-//        Order order = (Order) session.getAttribute("order");
+        HttpSession session = req.getSession(true);
+        Order order = (Order) session.getAttribute("order");
 
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-
-        //Production code
-        //context.setVariable("lineItems", shoppingCart.getLineItems());
-
-        //Test code until parts of the app are not implemented
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        Product product = new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon);
-        LineItem lineItem = new LineItem(product, 2);
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.addLineItem(lineItem);
-        Order order = new Order();
-        order.setShoppingCart(shoppingCart);
 
         context.setVariable("order", order);
         engine.process("product/order.html", context, resp.getWriter());

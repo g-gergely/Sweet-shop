@@ -16,10 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet(urlPatterns = {"/"})
+@WebServlet(name="home", urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
     @Override
@@ -35,8 +33,8 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 //        context.setVariables(params);
         context.setVariable("recipient", "World");
-        context.setVariable("category", productCategoryDataStore.find(5));
-        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(5)));
+        context.setVariable("category", productCategoryDataStore.find(1));
+        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         engine.process("product/index.html", context, resp.getWriter());
     }
 

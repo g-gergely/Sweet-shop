@@ -8,7 +8,6 @@ public class LineItem {
     private int quantity;
     private float totalPrice;
 
-
     public float getPrice() {
         return product.getDefaultPrice();
     }
@@ -30,4 +29,5 @@ public class LineItem {
         this.quantity = quantity;
         this.totalPrice = product.getDefaultPrice() * quantity;
     }
+
 }
