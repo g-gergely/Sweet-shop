@@ -66,3 +66,11 @@
     height: auto;
     margin: 10px auto;
 }
+
+#cart-ref{
+    position: fixed;
+}
+
+#home-ref {
+    position: fixed;
+}
