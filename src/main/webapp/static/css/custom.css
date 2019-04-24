@@ -66,3 +66,14 @@
     height: auto;
     margin: 10px auto;
 }
+
+#dropdowns{
+    display:inline-block
+}
+
+#dropdown1{
+    float: left;
+}
+#dropdown2{
+    float: right;
+}
