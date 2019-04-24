@@ -44,7 +44,7 @@ public class ProductFilterBySupplier {
             WebContext context = new WebContext(req, resp, req.getServletContext());
 
             //Rendering back the result
-            context.setVariable("productsBySupplier",productsBySupplier);
+            context.setVariable("products",productsBySupplier);
             engine.process("product/index.html", context, resp.getWriter());
 
 

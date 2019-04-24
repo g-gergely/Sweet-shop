@@ -37,12 +37,13 @@ public class ProductFilterByCategory {
             int productCategoryId= Integer.parseInt(req.getParameter("category_id"));
             ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
             productsByCategory= productDataStore.getBy(productCategory);
+            System.out.println("READ THIS:"+productsByCategory);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             WebContext context = new WebContext(req, resp, req.getServletContext());
 
             //Rendering back the result
-            context.setVariable("productsByCategory", productsByCategory);
+            context.setVariable("products", productsByCategory);
             engine.process("product/index.html", context, resp.getWriter());
 
 
