@@ -23,13 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductFilterByCategory {
-    @WebServlet(urlPatterns = {"/category"})
-    public class ProductController extends HttpServlet {
+@WebServlet(urlPatterns = {"/category"})
+public class ProductFilterByCategory extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             ProductDao productDataStore = ProductDaoMem.getInstance();
             ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+            SupplierDao supplierDataStore= SupplierDaoMem.getInstance();
 
             List<Product> productsByCategory = new ArrayList<>();
 
@@ -44,9 +44,11 @@ public class ProductFilterByCategory {
 
             //Rendering back the result
             context.setVariable("products", productsByCategory);
+            context.setVariable("categoryList", productCategoryDataStore.getAll());
+            context.setVariable("supplierList", supplierDataStore.getAll());
             engine.process("product/index.html", context, resp.getWriter());
 
 
         }
     }
-}
+
