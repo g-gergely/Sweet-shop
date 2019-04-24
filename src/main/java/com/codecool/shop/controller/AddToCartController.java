@@ -49,6 +49,6 @@ public class AddToCartController extends HttpServlet {
         session.setAttribute("order", order);
         //System.out.println(((Order) session.getAttribute("order")).getShoppingCart().getLineItems());
 
-        resp.sendRedirect(req.getContextPath() + "/");
+        resp.sendRedirect(req.getContextPath() + ProductController.getHomeUrl());
     }
 }
