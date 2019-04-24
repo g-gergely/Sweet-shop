@@ -9,7 +9,7 @@ public class Order {
     String phoneNumber;
     Map<String, String> billingAddress = new HashMap<>();
     Map<String, String> shippingAddress = new HashMap<>();
-    ShoppingCart shoppingCart;
+    ShoppingCart shoppingCart = new ShoppingCart();
 
     public String getUsername() {
         return username;
