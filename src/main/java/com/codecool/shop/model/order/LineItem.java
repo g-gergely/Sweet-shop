@@ -20,6 +20,10 @@ public class LineItem {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getProductName() {
         return product.getName();
     }
