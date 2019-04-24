@@ -60,3 +60,20 @@
 {
     margin: 0 0 11px;
 }
+
+.card .card-img {
+    width: 300px;
+    height: auto;
+    margin: 10px auto;
+}
+
+#dropdowns{
+    display:inline-block
+}
+
+#dropdown1{
+    float: left;
+}
+#dropdown2{
+    float: right;
+}

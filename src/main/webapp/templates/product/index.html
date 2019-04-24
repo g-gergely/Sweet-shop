@@ -8,6 +8,7 @@
     <title>Codecool Shop</title>
 
     <!-- Bootstrap components -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -35,14 +36,29 @@
 </div>
 
 <div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+    <div class="card" id="dropdowns">
+        <div class="dropdown" id="dropdown1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Product Category
+            </button>
+            <div id="chooseCategory" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:each="categoryElements : ${categoryList}" th:attr="href='/?category_id=' + ${categoryElements.id}" th:text="${categoryElements.name}">Category name</a>
+            </div>
+        </div>
+        <div class="dropdown" id="dropdown2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Supplier Category
+            </button>
+            <div id="chooseSupplier" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:each="supplierElements : ${supplierList}" th:attr="href='/?supplier_id=' + ${supplierElements.id}" th:text="${supplierElements.name}">Supplier name</a>
+            </div>
+        </div>
     </div>
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="card-img" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpeg'" alt="" />
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
