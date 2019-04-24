@@ -24,18 +24,48 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        Supplier grannys = new Supplier("Granny's", "Traditional, home-made biscuits");
+        supplierDataStore.add(grannys);
+        Supplier cakeWonders = new Supplier("Cake Wonders", "A wide variety of delicious cakes.");
+        supplierDataStore.add(cakeWonders);
+        Supplier sweeterSweets = new Supplier("Sweeter Sweets", "Candies - not only for children!");
+        supplierDataStore.add(sweeterSweets);
+        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
+        supplierDataStore.add(choco);
+        Supplier sweetDesire = new Supplier("Sweet Desire", "Special sweets for special occasions.");
+        supplierDataStore.add(sweetDesire);
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
+        ProductCategory biscuit = new ProductCategory("Biscuit", "Pastry", "Various types of sweet baked cakes.");
+        productCategoryDataStore.add(biscuit);
+        ProductCategory cake = new ProductCategory("Cake", "Pastry", "Various types of sweet baked cakes.");
+        productCategoryDataStore.add(cake);
+        ProductCategory cupcake = new ProductCategory("Cupcake", "Pastry", "Various types of sweet baked cakes.");
+        productCategoryDataStore.add(cupcake);
+        ProductCategory candy = new ProductCategory("Candy", "Sweets", "Sweet, sugary food (chocolate or candies).");
+        productCategoryDataStore.add(candy);
+        ProductCategory chocolate = new ProductCategory("Chocolate", "Sweets", "Sweet, sugary food (chocolate or candies).");
+        productCategoryDataStore.add(chocolate);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("Crispy cookies", 9.9f, "USD", "Description comes here.", biscuit, grannys));
+        productDataStore.add(new Product("Macaroons", 7, "USD", "Description comes here.", biscuit, grannys));
+        productDataStore.add(new Product("Pancake with honey", 18, "USD", "Description comes here.", biscuit, grannys));
+        productDataStore.add(new Product("Biscuit Collection", 22, "USD", "Description comes here.", biscuit, grannys));
+        productDataStore.add(new Product("Cheesecake", 30, "USD", "Description comes here.", cake, cakeWonders));
+        productDataStore.add(new Product("Chocolate cake", 32, "USD", "Description comes here.", cake, cakeWonders));
+        productDataStore.add(new Product("Candy-pops", 3.5f, "USD", "Description comes here.", candy, sweetDesire));
+        productDataStore.add(new Product("Fruit candies", 2.2f, "USD", "Description comes here.", candy, sweeterSweets));
+        productDataStore.add(new Product("Rubber bear fruit gums", 2.7f, "USD", "Description comes here.", candy, sweeterSweets));
+        productDataStore.add(new Product("Gummy worms", 2.5f, "USD", "Description comes here.", candy, sweeterSweets));
+        productDataStore.add(new Product("Chocolate selection", 15.9f, "USD", "Description comes here.", chocolate, sweetDesire));
+        productDataStore.add(new Product("Heart-shape chocolate selection", 17.7f, "USD", "Description comes here.", chocolate, sweetDesire));
+        productDataStore.add(new Product("Dark chocolate with coffee", 10.9f, "USD", "Description comes here.", chocolate, choco));
+        productDataStore.add(new Product("Milk chocolate with hazelnut", 8.9f, "USD", "Description comes here.", chocolate, choco));
+        productDataStore.add(new Product("Dark chocolate with pistachio", 9.8f, "USD", "Description comes here.", chocolate, choco));
+        productDataStore.add(new Product("Milk chocolate with raspberry", 7.9f, "USD", "Description comes here.", chocolate, choco));
+        productDataStore.add(new Product("Blueberry cupcake", 12, "USD", "Description comes here.", cupcake, sweetDesire));
+        productDataStore.add(new Product("Chocolate cupcake", 11, "USD", "Description comes here.", cupcake, sweetDesire));
+        productDataStore.add(new Product("Vanilla cupcake", 10, "USD", "Description comes here.", cupcake, sweetDesire));
     }
 }
