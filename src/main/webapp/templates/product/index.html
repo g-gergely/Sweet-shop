@@ -36,8 +36,8 @@
 </div>
 
 <div class="container">
-    <div class="card">
-        <div class="dropdown">
+    <div class="card" id="dropdowns">
+        <div class="dropdown" id="dropdown1">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Product Category
             </button>
@@ -45,7 +45,7 @@
                 <a class="dropdown-item" th:each="categoryElements : ${categoryList}" th:attr="href='/?category_id=' + ${categoryElements.id}" th:text="${categoryElements.name}">Category name</a>
             </div>
         </div>
-        <div class="dropdown">
+        <div class="dropdown" id="dropdown2">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Supplier Category
             </button>
