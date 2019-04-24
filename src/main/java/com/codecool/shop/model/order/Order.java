@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
-    String username;
-    String emailAddress;
-    String phoneNumber;
-    Map<String, String> billingAddress = new HashMap<>();
-    Map<String, String> shippingAddress = new HashMap<>();
-    ShoppingCart shoppingCart = new ShoppingCart();
+    private String username;
+    private String emailAddress;
+    private String phoneNumber;
+    private Map<String, String> billingAddress = new HashMap<>();
+    private Map<String, String> shippingAddress = new HashMap<>();
+    private ShoppingCart shoppingCart = new ShoppingCart();
 
     public String getUsername() {
         return username;
