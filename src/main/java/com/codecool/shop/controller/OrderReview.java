@@ -25,7 +25,7 @@ public class OrderReview extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
-        Order order = (Order) session.getAttribute("order");
+        Order order = ((Order) session.getAttribute("order") == null) ? new Order() : (Order) session.getAttribute("order");
 
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
