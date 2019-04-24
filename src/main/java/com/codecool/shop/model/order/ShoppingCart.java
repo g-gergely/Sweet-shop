@@ -5,8 +5,7 @@ import java.util.List;
 
 public class ShoppingCart {
     List<LineItem> lineItems = new ArrayList<>();
-
-    float totalPrice = 0;
+    private float totalPrice;
 
     public List<LineItem> getLineItems() {
         return new ArrayList<>(lineItems);
@@ -22,6 +21,9 @@ public class ShoppingCart {
     }
 
     public float getTotalPrice() {
+        totalPrice = 0;
+        lineItems.forEach(lineItem -> totalPrice += lineItem.getTotalPrice());
+
         return totalPrice;
     }
 }
