@@ -37,11 +37,18 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 //        context.setVariables(params);
         context.setVariable("recipient", "World");
+        context.setVariable("category", productCategoryDataStore.find(5));
+        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(5)));
         context.setVariable("category", productCategoryDataStore.find(1));
         context.setVariable("categoryList", productCategoryDataStore.getAll());
         context.setVariable("supplierList", supplierDataStore.getAll());
         context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         engine.process("product/index.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     }
 
 }

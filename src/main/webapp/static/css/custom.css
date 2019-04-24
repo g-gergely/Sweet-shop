@@ -61,6 +61,12 @@
     margin: 0 0 11px;
 }
 
+.card .card-img {
+    width: 300px;
+    height: auto;
+    margin: 10px auto;
+}
+
 .dropdown{
     display: inline;
 }
