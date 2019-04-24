@@ -55,4 +55,8 @@ public class Order {
         return shoppingCart;
     }
 
+    //FOR TESTING
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 }

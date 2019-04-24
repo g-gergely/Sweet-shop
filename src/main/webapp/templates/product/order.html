@@ -41,15 +41,15 @@
                     <th>Price</th>
                     <th>Total</th>
                 </tr>
-                <tr th:each="lineItem,iterStat : ${lineItems}">
-                    <td th:text="${lineItem.getName()}">Product name</td>
-                    <td>Quantity</td>
+                <tr th:each="lineItem,iterStat : ${order.getShoppingCart().getLineItems()}">
+                    <td th:text="${lineItem.getProductName()}">Product name</td>
+                    <td th:text="${lineItem.getQuantity()}">Quantity</td>
                     <td th:text="${lineItem.getPrice()}"></td>
-                    <td>Total</td>
+                    <td th:text="${lineItem.getTotalPrice()}">Total</td>
                 </tr>
             </table>
 
-            <div>Total price of cart: <span>199</span></div>
+            <div>Total price of cart: <span th:text="${order.getShoppingCart().getTotalPrice()}">199</span></div>
         </div>
 
     </div>
