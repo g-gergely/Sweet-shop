@@ -77,3 +77,11 @@
 #dropdown2{
     float: right;
 }
+
+#cart-ref{
+    position: fixed;
+}
+
+#home-ref {
+    position: fixed;
+}

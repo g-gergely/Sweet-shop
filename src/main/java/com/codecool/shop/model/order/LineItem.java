@@ -8,11 +8,6 @@ public class LineItem {
     private int quantity;
     private float totalPrice;
 
-    public LineItem(Product product, int quantity) {
-        this.product = product;
-        this.quantity = quantity;
-    }
-
     public float getPrice() {
         return product.getDefaultPrice();
     }
@@ -32,4 +27,11 @@ public class LineItem {
     public String getProductName() {
         return product.getName();
     }
+
+    public LineItem (Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+        this.totalPrice = product.getDefaultPrice() * quantity;
+    }
+
 }

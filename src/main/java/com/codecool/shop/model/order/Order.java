@@ -54,5 +54,4 @@ public class Order {
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
     }
-
 }
