@@ -7,8 +7,11 @@ window.addEventListener('load', () => {
 
     for (let i=0; i<quantityFields.length; i++) {
         quantityFields[i].addEventListener('change', () => {
+            if (parseFloat(quantityFields[i].value) == 0) {
+                removeLineItem(lineItemIds[i].dataset.id);
+            }
+
             let sumOfProducts = parseFloat(quantityFields[i].value) * parseFloat(priceFields[i].dataset.price);
-            console.log(parseFloat(priceFields[i].dataset.price));
 
             totalFields[i].textContent = sumOfProducts.toFixed(1) + " USD";
             totalFields[i].dataset.total = sumOfProducts;
@@ -40,4 +43,10 @@ function serverUpdateLineItem(url, lineId, quantity) {
             "Quantity": quantity
         },
     })
+}
+
+
+function removeLineItem(id) {
+    let lineItem = document.querySelector("[data-id='" + id + "']");
+    lineItem.remove();
 }

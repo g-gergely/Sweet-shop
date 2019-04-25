@@ -44,6 +44,9 @@ public class OrderReview extends HttpServlet {
         List<LineItem> lineItems = order.getShoppingCart().getLineItems();
         for (LineItem lineItem : lineItems) {
             if (lineItem.getId() == Integer.parseInt(req.getHeader("LineId"))) {
+                if (Integer.parseInt(req.getHeader("Quantity")) == 0) {
+                    order.getShoppingCart().removeLineItem(lineItem);
+                }
                 lineItem.setQuantity(Integer.parseInt(req.getHeader("Quantity")));
             }
         }
