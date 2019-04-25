@@ -47,25 +47,26 @@ public class Initializer implements ServletContextListener {
         ProductCategory chocolate = new ProductCategory("Chocolate", "Sweets", "Sweet, sugary food (chocolate or candies).");
         productCategoryDataStore.add(chocolate);
 
-        //setting up products and printing it
-        productDataStore.add(new Product("Crispy cookies", 9.9f, "USD", "Description comes here.", biscuit, grannys));
-        productDataStore.add(new Product("Macaroons", 7, "USD", "Description comes here.", biscuit, grannys));
-        productDataStore.add(new Product("Pancake with honey", 18, "USD", "Description comes here.", biscuit, grannys));
-        productDataStore.add(new Product("Biscuit Collection", 22, "USD", "Description comes here.", biscuit, grannys));
-        productDataStore.add(new Product("Cheesecake", 30, "USD", "Description comes here.", cake, cakeWonders));
-        productDataStore.add(new Product("Chocolate cake", 32, "USD", "Description comes here.", cake, cakeWonders));
-        productDataStore.add(new Product("Candy-pops", 3.5f, "USD", "Description comes here.", candy, sweetDesire));
-        productDataStore.add(new Product("Fruit candies", 2.2f, "USD", "Description comes here.", candy, sweeterSweets));
-        productDataStore.add(new Product("Rubber bear fruit gums", 2.7f, "USD", "Description comes here.", candy, sweeterSweets));
-        productDataStore.add(new Product("Gummy worms", 2.5f, "USD", "Description comes here.", candy, sweeterSweets));
-        productDataStore.add(new Product("Chocolate selection", 15.9f, "USD", "Description comes here.", chocolate, sweetDesire));
-        productDataStore.add(new Product("Heart-shape chocolate selection", 17.7f, "USD", "Description comes here.", chocolate, sweetDesire));
-        productDataStore.add(new Product("Dark chocolate with coffee", 10.9f, "USD", "Description comes here.", chocolate, choco));
-        productDataStore.add(new Product("Milk chocolate with hazelnut", 8.9f, "USD", "Description comes here.", chocolate, choco));
-        productDataStore.add(new Product("Dark chocolate with pistachio", 9.8f, "USD", "Description comes here.", chocolate, choco));
-        productDataStore.add(new Product("Milk chocolate with raspberry", 7.9f, "USD", "Description comes here.", chocolate, choco));
-        productDataStore.add(new Product("Blueberry cupcake", 12, "USD", "Description comes here.", cupcake, sweetDesire));
-        productDataStore.add(new Product("Chocolate cupcake", 11, "USD", "Description comes here.", cupcake, sweetDesire));
-        productDataStore.add(new Product("Vanilla cupcake", 10, "USD", "Description comes here.", cupcake, sweetDesire));
+        //setting up products
+        productDataStore.add(new Product("Crispy cookies", 9.9f, "USD", "If something is as crispy as an apple, it must be healthy too!", biscuit, grannys));
+        productDataStore.add(new Product("Macaroons", 7, "USD", "Light - not just in weight but calories as well.", biscuit, grannys));
+        productDataStore.add(new Product("Pancake with honey", 18, "USD", "Soft as a pillow, with the treasure of bees.", biscuit, grannys));
+        productDataStore.add(new Product("Biscuit Collection", 22, "USD", "Finest of our wares, best for tea in the afternoons.", biscuit, grannys));
+        productDataStore.add(new Product("Cheesecake", 30, "USD", "Cheesy dreams!", cake, cakeWonders));
+        productDataStore.add(new Product("Chocolate cake", 32, "USD", "Dark as night but sweet as our children's smile.", cake, cakeWonders));
+        productDataStore.add(new Product("Candy-pops", 3.5f, "USD", "Candies on a pole, available in various flavours!", candy, sweetDesire));
+        productDataStore.add(new Product("Fruit candies", 2.2f, "USD", " They have it in their name: FRUIT!", candy, sweeterSweets));
+        productDataStore.add(new Product("Rubber bear fruit gums", 2.7f, "USD", "So cute that you would like to die for it.", candy, sweeterSweets));
+        productDataStore.add(new Product("Gummy worms", 2.5f, "USD", "They'll live longer than Grey Worm.", candy, sweeterSweets));
+        productDataStore.add(new Product("Chocolate selection", 15.9f, "USD", "You will get a little from everything... but you will want more.", chocolate, sweetDesire));
+        productDataStore.add(new Product("Heart-shape chocolate selection", 17.7f, "USD", "Almost as effective as oyster...", chocolate, sweetDesire));
+        productDataStore.add(new Product("Dark chocolate with coffee", 10.9f, "USD", "Coffee? You said COFFEE?", chocolate, choco));
+        productDataStore.add(new Product("Milk chocolate with hazelnut", 8.9f, "USD", "It is soo good that it will have you wrapped in haze.", chocolate, choco));
+        productDataStore.add(new Product("Dark chocolate with pistachio", 9.8f, "USD", "Chocolate with melted pistachio.", chocolate, choco));
+        productDataStore.add(new Product("Milk chocolate with raspberry", 7.9f, "USD", "Julius Cesar's favourite!", chocolate, choco));
+        productDataStore.add(new Product("Blueberry cupcake", 12, "USD", "We didn't make it in a microwave!", cupcake, sweetDesire));
+        productDataStore.add(new Product("Chocolate cupcake", 11, "USD", "Only with the best Swiss chocolate!", cupcake, sweetDesire));
+        productDataStore.add(new Product("Vanilla cupcake", 10, "USD", "The dream of every princess!", cupcake, sweetDesire));
+        productDataStore.add(new Product("Fantastic Five", 35, "USD", "Some only dream of cake - we bake it happen!", cake, cakeWonders));
     }
 }

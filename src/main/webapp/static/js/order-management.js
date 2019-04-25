@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
 
     for (let i=0; i<quantityFields.length; i++) {
         quantityFields[i].addEventListener('change', () => {
-            if (parseFloat(quantityFields[i].value) == 0) {
+            if (parseFloat(quantityFields[i].value) === 0) {
                 removeLineItem(lineItemIds[i].dataset.id);
             }
 
@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
             serverUpdateLineItem("/order", parseInt(lineItemIds[i].dataset.id), parseInt(quantityFields[i].value))
         });
     }
-})
+});
 
 function sumTotalsUp() {
     let totalFields = document.querySelectorAll("td:last-child");
@@ -41,7 +41,7 @@ function serverUpdateLineItem(url, lineId, quantity) {
             "Content-Type": "application/json",
             "LineId": lineId,
             "Quantity": quantity
-        },
+        }
     })
 }
 
