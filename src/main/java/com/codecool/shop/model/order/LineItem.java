@@ -6,7 +6,6 @@ import com.codecool.shop.model.Product;
 public class LineItem {
     private Product product;
     private int quantity;
-    private float totalPrice;
 
     public float getPrice() {
         return product.getDefaultPrice();
@@ -31,7 +30,6 @@ public class LineItem {
     public LineItem (Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.totalPrice = product.getDefaultPrice() * quantity;
     }
 
 }

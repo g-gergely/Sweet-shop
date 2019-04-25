@@ -31,7 +31,25 @@ public class OrderReview extends HttpServlet {
         context.setVariable("linkText", "Back");
         context.setVariable("url", req.getContextPath() + ProductController.getHomeUrl());
         context.setVariable("linkId", "back-link");
-        System.out.println(ProductController.getHomeUrl());
         engine.process("product/order.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+         HttpSession session = req.getSession(true);
+         Order order = (Order) session.getAttribute("order");
+         int lineItemNumber = order.getShoppingCart().getLineItems().size();
+
+         for (int i = 0; i < lineItemNumber; i++) {
+             int updatedValue = Integer.parseInt(req.getParameter("quantity_" + i));
+             LineItem lineItem = order.getShoppingCart().getLineItems().get(i);
+             lineItem.setQuantity(updatedValue);
+         }
+         for (LineItem lineItem: order.getShoppingCart().getLineItems()) {
+             if (lineItem.getQuantity() == 0) {
+                order.getShoppingCart().removeLineItem(lineItem);
+             }
+         }
+         doGet(req, resp);
     }
 }
