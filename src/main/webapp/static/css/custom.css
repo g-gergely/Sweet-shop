@@ -2,14 +2,17 @@
 
 html, body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
     box-sizing: border-box;
     font-family: 'Patrick Hand', cursive;
     background-color: gainsboro;
 }
 
 nav {
-    height: 70px;
+    height: 60px;
     background-color: #4d0000;
     position: fixed;
     top: 0;
@@ -20,9 +23,9 @@ nav {
 nav a {
     float: left;
     color: peachpuff;
-    font-size: 28px;
+    font-size: 25px;
     padding: 0 30px;
-    line-height: 70px;
+    line-height: 60px;
 }
  nav a:last-child {
      float: right;
@@ -39,8 +42,10 @@ nav a {
  }
 
 .banner {
-    margin-top: 70px;
+    margin-top: 60px;
     background-image:url("/static/img/banner.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 184px;
     border-bottom: 1px solid #4d0000;
  }
@@ -51,24 +56,28 @@ nav a {
     font-size: 55px;
 }
 footer {
-    height: 70px;
+    height: 35px;
     background-color: #4d0000;
     color: peachpuff;
     width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 
 footer p {
     padding: 0;
     margin: 0;
-    line-height: 70px;
+    line-height: 35px;
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 /* Home page */
 
 .container {
-    margin: 25px auto;
+    margin: 25px auto 60px;
+    /*padding: 20px 20px 70px 20px;*/
     padding: 20px;
     background-color: peachpuff;
     box-shadow: 0 0 20px #4d0000;
@@ -98,17 +107,37 @@ footer p {
     margin-bottom: 15px;
 }
 
+.card-text a {
+    border: none;
+    background-color: #691616;
+    color: white;
+}
+
+.card-text a:hover {
+    background-color: #4d0000;
+    color: white;
+}
+
 /* Shopping cart*/
 
 table {
     width: 90%;
     margin: 10px auto;
 }
+th {
+    color: peachpuff;;
+}
 
 th, td {
     text-align: center;
     font-size: 22px;
     border-bottom: 1px solid #4d0000;
+}
+tr:nth-child(odd) {
+    background-color: antiquewhite;
+}
+tr:first-child {
+    background-color: #4d0000;
 }
 
 #lineItems div {
@@ -120,8 +149,17 @@ th, td {
 .quantityField {
     border: none;
     background-color: antiquewhite;
-    width: 40px;
+    width: 60px;
     border-radius: 7px;
-    box-shadow: 0 0 5px grey;
-    text-align: end;
+    box-shadow: 0 0 5px #4d0000;
+    text-align: center;
+    padding-right: 5px;
+}
+
+#lineItems div {
+    color: #4d0000;
+}
+
+#lineItems div span {
+    font-weight: bold;
 }
