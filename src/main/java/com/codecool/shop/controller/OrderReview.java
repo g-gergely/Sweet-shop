@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import java.util.*;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -33,5 +34,21 @@ public class OrderReview extends HttpServlet {
         context.setVariable("linkId", "back-link");
         System.out.println(ProductController.getHomeUrl());
         engine.process("product/order.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(true);
+        Order order = (session.getAttribute("order") == null) ? new Order() : (Order) session.getAttribute("order");
+
+        List<LineItem> lineItems = order.getShoppingCart().getLineItems();
+        for (LineItem lineItem : lineItems) {
+            if (lineItem.getId() == Integer.parseInt(req.getHeader("LineId"))) {
+                if (Integer.parseInt(req.getHeader("Quantity")) == 0) {
+                    order.getShoppingCart().removeLineItem(lineItem);
+                }
+                lineItem.setQuantity(Integer.parseInt(req.getHeader("Quantity")));
+            }
+        }
     }
 }
