@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
-    console.log("Hello");
 
+    let lineItemIds = document.querySelectorAll("[data-id]");
     let quantityFields = document.querySelectorAll("input");
     let priceFields = document.querySelectorAll('[data-price]');
     let totalFields = document.querySelectorAll("td:last-child");
@@ -11,8 +11,9 @@ window.addEventListener('load', () => {
             console.log(parseFloat(priceFields[i].dataset.price));
 
             totalFields[i].textContent = sumOfProducts.toFixed(1) + " USD";
-            totalFields[i].dataset.price = sumOfProducts;
+            totalFields[i].dataset.total = sumOfProducts;
             sumTotalsUp();
+            serverUpdateLineItem("/order", parseInt(lineItemIds[i].dataset.id), parseInt(quantityFields[i].value))
         });
     }
 })
@@ -23,8 +24,20 @@ function sumTotalsUp() {
 
     let orderTotalPrice = 0;
     for (let i=0; i<totalFields.length; i++) {
-        orderTotalPrice += parseFloat(totalFields[i].dataset.price);
+        orderTotalPrice += parseFloat(totalFields[i].dataset.total);
     }
 
     orderTotalField.textContent = orderTotalPrice.toFixed(1) + " USD";
+}
+
+
+function serverUpdateLineItem(url, lineId, quantity) {
+    return fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "LineId": lineId,
+            "Quantity": quantity
+        },
+    })
 }

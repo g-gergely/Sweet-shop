@@ -43,7 +43,7 @@
                     <th>Price</th>
                     <th>Total</th>
                 </tr>
-                <tr th:each="lineItem,iterStat : ${order.getShoppingCart().getLineItems()}">
+                <tr th:each="lineItem,iterStat : ${order.getShoppingCart().getLineItems()}" th:data-id="${lineItem.getId()}">
                     <td th:text="${lineItem.getProductName()}">Product name</td>
                     <td><input type="number" min="0" th:attr="value=${lineItem.getQuantity()}" class="quantityField"></td>
                     <td th:text="${lineItem.getPrice()} + ' USD'" th:data-price="${lineItem.getPrice()}"></td>

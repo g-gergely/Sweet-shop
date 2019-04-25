@@ -7,13 +7,14 @@ public class LineItem {
     private Product product;
     private int quantity;
     private float totalPrice;
+    private int id;
 
     public float getPrice() {
         return product.getDefaultPrice();
     }
 
     public float getTotalPrice() {
-        return product.getDefaultPrice() * quantity;
+        return (float) (Math.round(product.getDefaultPrice() * quantity * 10.0) / 10.0);
     }
 
     public int getQuantity() {
@@ -32,6 +33,10 @@ public class LineItem {
         this.product = product;
         this.quantity = quantity;
         this.totalPrice = product.getDefaultPrice() * quantity;
+        this.id = (int) (Math.random() * 1000000);
     }
 
+    public int getId() {
+        return id;
+    }
 }
