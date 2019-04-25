@@ -64,7 +64,7 @@ public class ProductController extends HttpServlet {
         List<Product> products;
         ProductCategory category;
         Supplier supplier;
-        int defaultCategory = 1;
+        int defaultCategory = 2;
 
         if (isEmptyId(productCategoryId) && isEmptyId(supplierId)) {
             products = productDataStore.getBy(productCategoryDataStore.find(defaultCategory));
