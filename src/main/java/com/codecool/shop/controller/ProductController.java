@@ -33,26 +33,18 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
-        int productCategoryId = 0;
-        int supplierId = 0;
+        int emptyId = -1;
+        int productCategoryId = (req.getParameter("category_id") != null) ? Integer.parseInt(req.getParameter("category_id")) : emptyId;
+        int supplierId = (req.getParameter("supplier_id") != null) ? Integer.parseInt(req.getParameter("supplier_id")) : emptyId;
 
-        if (req.getParameter("category_id") != null) {
-            productCategoryId = Integer.parseInt(req.getParameter("category_id"));
-        }
-        if (req.getParameter("supplier_id") != null) {
-            supplierId = Integer.parseInt(req.getParameter("supplier_id"));
-        }
-
-        List<Product> products = getProducts(productDataStore, productCategoryDataStore, supplierDataStore, productCategoryId, supplierId);
+        List<Product> products = getProducts(productCategoryId, supplierId);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        context.setVariable("recipient", "World");
         context.setVariable("categoryList", productCategoryDataStore.getAll());
         context.setVariable("supplierList", supplierDataStore.getAll());
         context.setVariable("products", products);
@@ -64,14 +56,20 @@ public class ProductController extends HttpServlet {
         HOME_URL = getRequestURL(req);
     }
 
-    private List<Product> getProducts(ProductDao productDataStore, ProductCategoryDao productCategoryDataStore, SupplierDao supplierDataStore, int productCategoryId, int supplierId) {
+    private List<Product> getProducts(int productCategoryId, int supplierId) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+
         List<Product> products;
         ProductCategory category;
         Supplier supplier;
-        if (productCategoryId == 0 && supplierId == 0) {
-            products = productDataStore.getBy(productCategoryDataStore.find(1));
+        int defaultCategory = 1;
+
+        if (isEmptyId(productCategoryId) && isEmptyId(supplierId)) {
+            products = productDataStore.getBy(productCategoryDataStore.find(defaultCategory));
         }
-        else if (productCategoryId != 0) {
+        else if (!isEmptyId(productCategoryId)) {
             category = productCategoryDataStore.find(productCategoryId);
             products = productDataStore.getBy(category);
         } else {
@@ -90,6 +88,11 @@ public class ProductController extends HttpServlet {
         } else {
             return requestURL.concat("?").concat(queryString);
         }
+    }
+
+    private boolean isEmptyId(int id) {
+        int emptyId = -1;
+        return id == emptyId;
     }
 }
 
