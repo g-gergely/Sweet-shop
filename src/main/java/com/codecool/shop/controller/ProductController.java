@@ -7,7 +7,6 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -57,6 +56,9 @@ public class ProductController extends HttpServlet {
         context.setVariable("categoryList", productCategoryDataStore.getAll());
         context.setVariable("supplierList", supplierDataStore.getAll());
         context.setVariable("products", products);
+        context.setVariable("linkText", "Shopping cart");
+        context.setVariable("url", "/order");
+        context.setVariable("linkId", "cart-link");
         engine.process("product/index.html", context, resp.getWriter());
 
         HOME_URL = getRequestURL(req);

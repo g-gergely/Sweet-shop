@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <nav th:fragment="copy">
+            <a href="#" id="login-link">Login</a>
+            <a href="#" id="register-link">Register</a>
+            <a th:href="@{${url}}" th:attr="id=${linkId}" th:text="${linkText}">link</a>
+        </nav>
+
+    </body>
+</html>

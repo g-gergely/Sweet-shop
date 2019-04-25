@@ -1,8 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -12,10 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sound.sampled.Line;
 import java.io.IOException;
 
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.order.*;
 
 
@@ -32,7 +28,9 @@ public class OrderReview extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         context.setVariable("order", order);
-        context.setVariable("back", req.getContextPath() + ProductController.getHomeUrl());
+        context.setVariable("linkText", "Back");
+        context.setVariable("url", req.getContextPath() + ProductController.getHomeUrl());
+        context.setVariable("linkId", "back-link");
         System.out.println(ProductController.getHomeUrl());
         engine.process("product/order.html", context, resp.getWriter());
     }

@@ -24,17 +24,17 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
-
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
 </head>
 <body>
-    <a th:href="@{${back}}" id="home-ref">Go to shop</a>
-    <div class="jumbotron text-center">
+    <div th:replace="header.html :: copy"></div>
+    <div class="banner">
         <h1>My Shopping Cart</h1>
     </div>
 
     <div class="container">
-        <div id="lineItems" class="row">
+        <div id="lineItems" class="">
             <table class="table">
                 <tr>
                     <th>Product name</th>
@@ -45,12 +45,12 @@
                 <tr th:each="lineItem,iterStat : ${order.getShoppingCart().getLineItems()}">
                     <td th:text="${lineItem.getProductName()}">Product name</td>
                     <td th:text="${lineItem.getQuantity()}">Quantity</td>
-                    <td th:text="${lineItem.getPrice()}"></td>
-                    <td th:text="${lineItem.getTotalPrice()}">Total</td>
+                    <td th:text="${lineItem.getPrice()} + ' USD'"></td>
+                    <td th:text="${lineItem.getTotalPrice() } + ' USD'">Total</td>
                 </tr>
             </table>
 
-            <div>Total price of cart: <span th:text="${order.getShoppingCart().getTotalPrice()}">199</span></div>
+            <div>Total price of cart: <span th:text="${order.getShoppingCart().getTotalPrice()} + ' USD'">199</span></div>
         </div>
 
     </div>
