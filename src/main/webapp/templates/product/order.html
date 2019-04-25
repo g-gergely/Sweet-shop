@@ -26,6 +26,7 @@
     <!-- End of Bootstrap components -->
     <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script src="/static/js/order-management.js" defer></script>
 </head>
 <body>
     <div th:replace="header.html :: copy"></div>
@@ -44,9 +45,9 @@
                 </tr>
                 <tr th:each="lineItem,iterStat : ${order.getShoppingCart().getLineItems()}">
                     <td th:text="${lineItem.getProductName()}">Product name</td>
-                    <td th:text="${lineItem.getQuantity()}">Quantity</td>
-                    <td th:text="${lineItem.getPrice()} + ' USD'"></td>
-                    <td th:text="${lineItem.getTotalPrice() } + ' USD'">Total</td>
+                    <td><input type="number" min="0" th:attr="value=${lineItem.getQuantity()}" class="quantityField"></td>
+                    <td th:text="${lineItem.getPrice()} + ' USD'" th:data-price="${lineItem.getPrice()}"></td>
+                    <td th:text="${lineItem.getTotalPrice()} + ' USD'" th:data-total="${lineItem.getTotalPrice()}">Total</td>
                 </tr>
             </table>
 

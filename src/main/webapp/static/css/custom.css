@@ -116,3 +116,12 @@ th, td {
     font-size: 22px;
     text-align: center;
 }
+
+.quantityField {
+    border: none;
+    background-color: antiquewhite;
+    width: 40px;
+    border-radius: 7px;
+    box-shadow: 0 0 5px grey;
+    text-align: end;
+}
