@@ -35,26 +35,24 @@
     </div>
 
     <div class="container">
-        <form id="lineItems" action="/order" method="POST">
+        <div id="lineItems" class="">
             <table class="table">
                 <tr>
                     <th>Product name</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Total</th>
-                    <th>Edit quantity</th>
                 </tr>
                 <tr th:each="lineItem,iterStat : ${order.getShoppingCart().getLineItems()}">
                     <td th:text="${lineItem.getProductName()}">Product name</td>
-                    <td><input th:attr="name='quantity_' + ${iterStat.index}" type="number" min="0" th:value="${lineItem.getQuantity()}"> USD</td></td>
+                    <td th:text="${lineItem.getQuantity()}">Quantity</td>
                     <td th:text="${lineItem.getPrice()} + ' USD'"></td>
-                    <td th:text="${#numbers.formatDecimal(lineItem.getTotalPrice(), 1, 'COMMA', 2, 'POINT') } + ' USD'">Total</td>
-                    <td><input type="submit" value="Save changes"></td>
+                    <td th:text="${lineItem.getTotalPrice() } + ' USD'">Total</td>
                 </tr>
             </table>
 
-            <div>Total price of cart: <span th:text="${#numbers.formatDecimal(order.getShoppingCart().getTotalPrice(), 1, 'COMMA', 2, 'POINT') } + ' USD'">199</span></div>
-        </form>
+            <div>Total price of cart: <span th:text="${order.getShoppingCart().getTotalPrice()} + ' USD'">199</span></div>
+        </div>
 
     </div>
 
