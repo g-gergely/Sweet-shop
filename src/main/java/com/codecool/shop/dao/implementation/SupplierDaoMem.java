@@ -44,4 +44,8 @@ public class SupplierDaoMem implements SupplierDao {
         return data;
     }
 
+    public void clear(){
+        this.data.clear();
+    }
+
 }
