@@ -18,8 +18,8 @@ public class ProductDaoJdbc implements ProductDao {
     public void add(Product product) {
         String query = "INSERT INTO products (name, description, default_price, currency, supplier_id, category_id)" +
                 "VALUES(?,?,?,?,?,?)";
-        try(Connection connection=getConnection();
-            PreparedStatement preparedStatement=connection.prepareStatement(query);
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             ) {
             preparedStatement.setString(1,product.getName());
             preparedStatement.setString(2,product.getDescription());
