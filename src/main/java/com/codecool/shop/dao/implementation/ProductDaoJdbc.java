@@ -5,6 +5,7 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import java.sql.*;
 import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao {
@@ -15,7 +16,22 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public void add(Product product) {
-
+        String query = "INSERT INTO products (name, description, default_price, currency, supplier_id, category_id)" +
+                "VALUES(?,?,?,?,?,?)";
+        try(Connection connection=getConnection();
+            PreparedStatement preparedStatement=connection.prepareStatement(query);
+            ) {
+            preparedStatement.setString(1,product.getName());
+            preparedStatement.setString(2,product.getDescription());
+            preparedStatement.setFloat(3,product.getDefaultPrice());
+            preparedStatement.setString(4,product.getDefaultCurrency().toString());
+            preparedStatement.setInt(5,product.getSupplier().getId());
+            preparedStatement.setInt(6,product.getProductCategory().getId());
+            preparedStatement.execute();
+        }
+        catch (SQLException e){
+            System.out.println(e.getErrorCode());
+        }
     }
 
     @Override
@@ -42,4 +58,9 @@ public class ProductDaoJdbc implements ProductDao {
     public List<Product> getBy(ProductCategory productCategory) {
         return null;
     }
+
+    private Connection getConnection() throws SQLException{
+        return DriverManager.getConnection(DATABASE, DB_USER, DB_PASSWORD);
+    }
 }
+
