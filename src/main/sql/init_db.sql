@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS public.products;
+DROP TABLE IF EXISTS public.suppliers;
+DROP TABLE IF EXISTS public.categories;
+DROP SEQUENCE IF EXISTS public.products_id_seq;
+DROP SEQUENCE IF EXISTS public.suppliers_id_seq;
+DROP SEQUENCE IF EXISTS public.categories_id_seq;
+
+
+
 create table products
 (
 id int,

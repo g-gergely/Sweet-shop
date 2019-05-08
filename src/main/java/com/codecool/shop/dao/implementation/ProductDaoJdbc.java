@@ -16,7 +16,7 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public void add(Product product) {
-        String query = "INSERT INTO products (name, description, default_price, currency, supplier_id, category_id)" +
+        String query = "INSERT INTO products ( name, description, default_price, currency, supplier_id, category_id)" +
                 "VALUES(?,?,?,?,?,?)";
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
