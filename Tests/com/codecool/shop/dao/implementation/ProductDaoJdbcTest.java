@@ -28,11 +28,12 @@ class ProductDaoJdbcTest {
 
         // add product to database
         ProductDao productDao = new ProductDaoJdbc();
+        ((ProductDaoJdbc) productDao).clearProductsTable();
         productDao.add(product1);
         //get product from database
-        Product resultProduct =productDao.find(product1.getId());
+        Product resultProduct = productDao.find(1);
         //assert equals
-        assertEquals(product1, resultProduct);
+        assertEquals(product1.toStringWithoutId(), resultProduct.toStringWithoutId());
     }
 
 }

@@ -40,14 +40,14 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public Product find(int id) {
-        String query = "SELECT FROM products WHERE id=?";
+        String query = "SELECT * FROM products WHERE id=?";
 
         Product product = null;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
         ){
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
@@ -58,7 +58,7 @@ public class ProductDaoJdbc implements ProductDao {
                 int categoryId = resultSet.getInt("category_id");
                 ProductCategory productCategory = null;
                 //todo: Complete the argument list with Supplier and Category
-                product = new Product(name, defaulPrice, currency, description);
+                product = new Product(id, name, defaulPrice, currency, description);
             }
         }
         catch (SQLException e) {
@@ -89,6 +89,17 @@ public class ProductDaoJdbc implements ProductDao {
 
     private Connection getConnection() throws SQLException{
         return DriverManager.getConnection(DATABASE, DB_USER, DB_PASSWORD);
+    }
+
+    public void clearProductsTable() {
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+        ){
+            statement.execute("TRUNCATE TABLE products CASCADE; ALTER SEQUENCE products_id_seq RESTART WITH 1;");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

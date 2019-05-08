@@ -60,8 +60,8 @@ create unique index products_id_uindex
 create unique index suppliers_id_uindex
   on suppliers (id);
 
-alter table only suppliers
-  add constraint fk_supplier_id foreign key (id) references products(id);
+-- alter table only suppliers
+--   add constraint fk_supplier_id foreign key (id) references products(id);
 
-alter table only categories
-  add constraint fk_category_id foreign key (id) references products(id);
+-- alter table only categories
+--   add constraint fk_category_id foreign key (id) references products(id);
