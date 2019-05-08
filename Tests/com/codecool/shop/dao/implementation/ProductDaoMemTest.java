@@ -11,17 +11,22 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductDaoMemTest {
+    private ProductDao productDao = ProductDaoMem.getInstance();
+    private ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
+    private Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
+    private Product product4 = new Product("Magic Dog Poop", 10,
+            "USD", "" +
+            "True magical experience", magical, choco);
+    private Product product3 = new Product("Magic Pie", 10,
+            "USD", "" +
+            "True magical experience", magical, choco);
+    private Product product1 = new Product("Magic Cake", 10, "USD","" +
+            "True magical experience",magical, choco);
+    private Product product2 = new Product("Magic Jumm",50,"USD","",magical,
+            choco);
 
     @Test
     public void testIsHandlesAddedId(){
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product product1 = new Product("Magic Cake", 10, "USD","" +
-                "True magical experience",magical, choco);
-        Product product2 = new Product("Magic Jumm",50,"USD","",magical,
-                choco);
-
         productDao.add(product1);
         productDao.add(product2);
 
@@ -30,12 +35,6 @@ class ProductDaoMemTest {
 
     @Test
     public void testIsAddProductToMemory(){
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product product1 = new Product("Magic Cake", 10, "USD","" +
-                "True magical experience",magical, choco);
-
         productDao.add(product1);
 
         assertTrue(productDao.getAll().contains(product1));
@@ -43,7 +42,6 @@ class ProductDaoMemTest {
 
     @Test
     public void testIsAddHandlesNull(){
-        ProductDao productDao = ProductDaoMem.getInstance();
         Product product = null;
 
         assertThrows(NullPointerException.class,()->productDao.add(product));
@@ -51,20 +49,12 @@ class ProductDaoMemTest {
 
     @Test
     public void testIsFindReturnsNull() {
-        int id = -1;
-        ProductDao productDao = ProductDaoMem.getInstance();
-        assertNull(productDao.find(id));
+        assertNull(productDao.find(-1));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {1, 4, 40, 44, 4444})
     public void testIsFindReturnsNullForNonExistentNumbers(int num) {
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product product1 = new Product("Magic Cake", 10, "USD","" +
-                "True magical experience",magical, choco);
-
         productDao.add(product1);
 
         int overLoadedId = product1.getId()+num;
@@ -73,26 +63,13 @@ class ProductDaoMemTest {
 
     @Test
     public void testFindsGivenProduct() {
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product product1 = new Product("Magic Cake", 10, "USD","" +
-                "True magical experience",magical, choco);
-
         productDao.add(product1);
 
         assertEquals( product1, productDao.find(product1.getId()));
-
     }
 
     @Test
     public void testRemovesProduct(){
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product product1 = new Product("Magic Cake", 10, "USD","" +
-                "True magical experience",magical, choco);
-
         productDao.add(product1);
         productDao.remove(product1.getId());
 
@@ -101,30 +78,13 @@ class ProductDaoMemTest {
 
     @Test
     public void testThrowsErrorWhenDeletingNonExistentProduct(){
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product product1 = new Product("Magic Cake", 10, "USD","" +
-                "True magical experience",magical, choco);
-
         productDao.add(product1);
         assertDoesNotThrow(()->productDao.remove(product1.getId()));
     }
 
     @Test
     public void testGetsAllProducts(){
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product[] products = new Product[]{new Product("Magic Cake", 10,
-                "USD","" +
-                "True magical experience",magical, choco), new Product("Magic Surprise", 10,
-                "USD","" +
-                "True magical experience",magical, choco), new Product("Magic Pie", 10,
-                "USD","" +
-                "True magical experience",magical, choco), new Product("Magic Dog Poop", 10,
-                "USD","" +
-                "True magical experience",magical, choco)};
+        Product[] products = new Product[]{product1, product2, product3, product4};
 
         for(Product product: products){
             productDao.add(product);
@@ -137,20 +97,8 @@ class ProductDaoMemTest {
 
     @Test
     public void testIsCompareMemorySizeWithAddedProductNumber(){
-        ProductDao productDao = ProductDaoMem.getInstance();
         ((ProductDaoMem)productDao).clear();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-        Product[] products = new Product[]{new Product("Magic Cake", 10,
-                "USD","" +
-                "True magical experience",magical, choco), new Product("Magic Surprise", 10,
-                "USD","" +
-                "True magical experience",magical, choco), new Product("Magic Pie", 10,
-                "USD","" +
-                "True magical experience",magical, choco), new Product("Magic Dog Poop", 10,
-                "USD","" +
-                "True magical experience",magical, choco)};
-
+        Product[] products = new Product[]{product1,product2,product3,product4};
         for(Product product: products){
             productDao.add(product);
         }
@@ -160,46 +108,34 @@ class ProductDaoMemTest {
 
     @Test
     public void testGivesBackAllProductBySupplier(){
-        int numOfProducts =4;
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
         Supplier snoopy = new Supplier("Snoop Dog", "All kinds of magical stuff man!");
 
-        for (int i=0; i< numOfProducts; i++){
-            productDao.add(new Product("Magic Cake", 10,
-                    "USD","" +
-                    "True magical experience",magical, choco));
+        Product[] chocoProducts = new Product[]{product1,product2,product3,product4};
+        for(Product product: chocoProducts){
+            productDao.add(product);
         }
 
         productDao.add(new Product("Magic Cake", 10,
                 "USD","" +
                 "True magical experience",magical, snoopy));
 
-        assertEquals(numOfProducts, productDao.getBy(choco).size());
-
+        assertEquals(chocoProducts.length, productDao.getBy(choco).size());
     }
 
     @Test
     public void testGivesBackAllProductsByProductCategory(){
-        int numOfProducts =4;
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
         ProductCategory superSweet = new ProductCategory("Sweet as love","No data","Yum");
-        Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
 
-
-        for (int i=0; i< numOfProducts; i++){
-            productDao.add(new Product("Magic Cake", 10,
-                    "USD","" +
-                    "True magical experience",magical, choco));
+        Product[] magicProducts = new Product[]{product1,product2,product3,product4};
+        for(Product product: magicProducts){
+            productDao.add(product);
         }
 
         productDao.add(new Product("Magic Cake", 10,
                 "USD","" +
                 "True magical experience",superSweet, choco));
 
-        assertEquals(numOfProducts, productDao.getBy(magical).size());
+        assertEquals(magicProducts.length, productDao.getBy(magical).size());
     }
 
 }
