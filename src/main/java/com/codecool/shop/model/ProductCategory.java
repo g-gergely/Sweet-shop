@@ -8,9 +8,16 @@ public class ProductCategory extends BaseModel {
     private List<Product> products;
 
     public ProductCategory(String name, String department, String description) {
-        super(name);
+        super(name, description);
         this.department = department;
         this.products = new ArrayList<>();
+    }
+
+    public ProductCategory(int id, String name, String department, String description) {
+        super(name, description);
+        this.department = department;
+        this.products = new ArrayList<>();
+        this.id = id;
     }
 
     public String getDepartment() {
@@ -40,6 +47,16 @@ public class ProductCategory extends BaseModel {
                         "department: %3$s, " +
                         "description: %4$s",
                 this.id,
+                this.name,
+                this.department,
+                this.description);
+    }
+
+    public String toStringWithoutId() {
+        return String.format(
+                        "name: %1$s, " +
+                        "department: %2$s, " +
+                        "description: %3$s",
                 this.name,
                 this.department,
                 this.description);
