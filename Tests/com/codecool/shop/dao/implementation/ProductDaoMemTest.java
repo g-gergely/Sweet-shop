@@ -138,6 +138,7 @@ class ProductDaoMemTest {
     @Test
     public void testIsCompareMemorySizeWithAddedProductNumber(){
         ProductDao productDao = ProductDaoMem.getInstance();
+        ((ProductDaoMem)productDao).clear();
         ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
         Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
         Product[] products = new Product[]{new Product("Magic Cake", 10,
