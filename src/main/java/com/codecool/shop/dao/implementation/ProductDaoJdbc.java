@@ -26,8 +26,11 @@ public class ProductDaoJdbc implements ProductDao {
             preparedStatement.setString(2,product.getDescription());
             preparedStatement.setFloat(3,product.getDefaultPrice());
             preparedStatement.setString(4,product.getDefaultCurrency().toString());
-            preparedStatement.setInt(5,product.getSupplier().getId());
-            preparedStatement.setInt(6,product.getProductCategory().getId());
+
+            int supplierId = (product.getSupplier()==null) ? -1 :  product.getSupplier().getId();
+            preparedStatement.setInt(5,supplierId);
+            int categoryId = (product.getProductCategory() == null) ? -1 : product.getProductCategory().getId();
+            preparedStatement.setInt(6,categoryId);
             preparedStatement.execute();
         }
         catch (SQLException e){
@@ -54,8 +57,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Supplier supplier = null;
                 int categoryId = resultSet.getInt("category_id");
                 ProductCategory productCategory = null;
-
-                product = new Product(name, defaulPrice, currency, description, productCategory, supplier);
+                //todo: Complete the argument list with Supplier and Category
+                product = new Product(name, defaulPrice, currency, description);
             }
         }
         catch (SQLException e) {
