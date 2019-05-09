@@ -66,6 +66,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
         ) {
             preparedStatement.setInt(1,id);
+
         }
         catch (SQLException e){
             System.out.println(e.getErrorCode());
