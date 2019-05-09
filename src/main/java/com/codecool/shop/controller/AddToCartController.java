@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.order.LineItem;
 import com.codecool.shop.model.order.Order;
@@ -21,7 +22,7 @@ public class AddToCartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
         Product product = productDataStore.find(Integer.parseInt(req.getParameter("id")));
 
         HttpSession session = req.getSession();
