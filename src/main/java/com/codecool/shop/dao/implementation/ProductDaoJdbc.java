@@ -98,7 +98,7 @@ public class ProductDaoJdbc implements ProductDao {
              ResultSet resultSet = statement.executeQuery(query);
         ){
             while (resultSet.next()){
-                addProductsFromDb(products, resultSet);
+                addProductsFromDbTo(products, resultSet);
             }
 
 
@@ -108,7 +108,7 @@ public class ProductDaoJdbc implements ProductDao {
         return products;
     }
 
-    private void addProductsFromDb(List<Product> products, ResultSet resultSet) throws SQLException {
+    private void addProductsFromDbTo(List<Product> products, ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         String desc = resultSet.getString("description");
@@ -126,59 +126,32 @@ public class ProductDaoJdbc implements ProductDao {
     public List<Product> getBy(Supplier supplier) {
         String query = "SELECT * FROM products WHERE supplier_id = ?";
 
+        return getProductsFromDb(query, supplier.getId());
+    }
+
+    private List<Product> getProductsFromDb(String query, int id) {
         List<Product> products = new ArrayList<>();
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
         ) {
-            preparedStatement.setInt(1, supplier.getId());
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                addProductsFromDb(products, resultSet);
+                addProductsFromDbTo(products, resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getErrorCode());
         }
-
         return products;
     }
-
-
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        List<Product> products = new ArrayList<>();
-        ProductCategoryDao productDao = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDao = new SupplierDaoJdbc();
-
         String query = "SELECT * FROM products WHERE category_id = ?";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-        ) {
-            preparedStatement.setInt(1, productCategory.getId());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String desc = resultSet.getString("description");
-                float defaultPrice = resultSet.getFloat("default_price");
-                String currency = resultSet.getString("currency");
-                int supplierId = resultSet.getInt("supplier_id");
-                int productCategoryId = resultSet.getInt("category_id");
-                Product product = new Product(id, name, defaultPrice, currency, desc, productDao.find(productCategoryId)
-                        , supplierDao.find(supplierId));
-                products.add(product);
-
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getErrorCode());
-        }
-
-        return products;
+        return getProductsFromDb(query, productCategory.getId());
     }
-
-
 
     private Connection getConnection() throws SQLException{
         return DriverManager.getConnection(DATABASE, DB_USER, DB_PASSWORD);
