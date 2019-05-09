@@ -7,8 +7,16 @@ public class Supplier extends BaseModel {
     private List<Product> products;
 
     public Supplier(String name, String description) {
-        super(name);
+        super(name, description);
         this.products = new ArrayList<>();
+    }
+
+    public Supplier(int id, String name, String description) {
+        super(name, description);
+        this.id = id;
+        this.products = new ArrayList<>();
+
+
     }
 
     public void setProducts(ArrayList<Product> products) {
@@ -28,6 +36,15 @@ public class Supplier extends BaseModel {
                         "name: %2$s, " +
                         "description: %3$s",
                 this.id,
+                this.name,
+                this.description
+        );
+    }
+
+    public String toStringWithoutId() {
+        return String.format(
+                        "name: %1$s, " +
+                        "description: %2$s",
                 this.name,
                 this.description
         );
