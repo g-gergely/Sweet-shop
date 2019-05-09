@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -14,6 +15,9 @@ public class ProductDaoJdbc implements ProductDao {
     private static final String DATABASE = System.getenv("POSTGRES_DB_NAME");
     private static final String DB_USER = System.getenv("POSTGRES_DB_USER");
     private static final String DB_PASSWORD = System.getenv("POSTGRES_DB_PASSWORD");
+
+    private ProductCategoryDao productCategoryDao = new ProductCategoryDaoJdbc();
+    private SupplierDao supplierDao = new SupplierDaoJdbc();
 
     @Override
     public void add(Product product) {
@@ -53,12 +57,11 @@ public class ProductDaoJdbc implements ProductDao {
                 String description = resultSet.getString("description");
                 Float defaulPrice = resultSet.getFloat("default_price");
                 String currency = resultSet.getString("currency");
-                int supplierId = resultSet.getInt("supplier_id");
-                Supplier supplier = null;
-                int categoryId = resultSet.getInt("category_id");
-                ProductCategory productCategory = null;
-                //todo: Complete the argument list with Supplier and Category
-                product = new Product(id, name, defaulPrice, currency, description);
+
+                ProductCategory productCategory = getCategoryBy(resultSet.getInt("category_id"));
+                Supplier supplier = getSupplierBy(resultSet.getInt("supplier_id"));
+
+                product = new Product(id, name, defaulPrice, currency, description, productCategory, supplier);
             }
         }
         catch (SQLException e) {
@@ -100,6 +103,20 @@ public class ProductDaoJdbc implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ProductCategory getCategoryBy(int categoryId) {
+        ProductCategory productCategory = productCategoryDao.find(categoryId);
+        if (productCategory == null) productCategory = productCategory.getDefaultCategory();
+
+        return productCategory;
+    }
+
+    public Supplier getSupplierBy(int supplierId) {
+        Supplier supplier = supplierDao.find(supplierId);
+        if (supplier == null) supplier = supplier.getDefaultSupplier();
+
+        return supplier;
     }
 }
 
