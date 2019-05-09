@@ -10,11 +10,30 @@ public class Product extends BaseModel {
     private Supplier supplier;
 
 
+    public Product(int id, String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+        super(name, description);
+        this.setPrice(defaultPrice, currencyString);
+        this.setSupplier(supplier);
+        this.setProductCategory(productCategory);
+        this.id = id;
+    }
+
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+    }
+
+    public Product(String name, float defaultPrice, String currencyString, String description){
+        super(name, description);
+        this.setPrice(defaultPrice, currencyString);
+    }
+
+    public Product(int id, String name, float defaultPrice, String currencyString, String description){
+        super(name, description);
+        this.setPrice(defaultPrice, currencyString);
+        this.id = id;
     }
 
     public float getDefaultPrice() {
@@ -72,7 +91,16 @@ public class Product extends BaseModel {
                 this.name,
                 this.defaultPrice,
                 this.defaultCurrency.toString(),
-                this.productCategory.getName(),
-                this.supplier.getName());
+                (this.productCategory == null) ? "" : this.productCategory.getName(),
+                (this.supplier == null) ? "" : this.supplier.getName());
+    }
+
+    public String toStringWithoutId() {
+        return String.format("name: %1$s, " +
+                        "defaultPrice: %2$f, " +
+                        "defaultCurrency: %3$s",
+                this.name,
+                this.defaultPrice,
+                this.defaultCurrency);
     }
 }
