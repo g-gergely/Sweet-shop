@@ -9,7 +9,6 @@ import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao {
@@ -90,27 +89,16 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getAll() {
-        ProductCategoryDao productDao = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDao= new SupplierDaoJdbc();
-        List<Product> products = new ArrayList<>();
-
         String query="SELECT * FROM products";
+
+        List<Product> products = new ArrayList<>();
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
         ){
             while (resultSet.next()){
-                int id = resultSet.getInt("id");
-                String name =resultSet.getString("name");
-                String desc = resultSet.getString("description");
-                float defaultPrice = resultSet.getFloat("default_price");
-                String currency =resultSet.getString("currency");
-                int supplierId = resultSet.getInt("supplier_id");
-                int productCategoryId = resultSet.getInt("category_id");
-                Product product= new Product(id,name,defaultPrice,currency,desc,productDao.find(productCategoryId)
-                        ,supplierDao.find(supplierId));
-                products.add(product);
+                addProductsFromDb(products, resultSet);
             }
 
 
@@ -120,14 +108,25 @@ public class ProductDaoJdbc implements ProductDao {
         return products;
     }
 
+    private void addProductsFromDb(List<Product> products, ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        String name = resultSet.getString("name");
+        String desc = resultSet.getString("description");
+        float defaultPrice = resultSet.getFloat("default_price");
+        String currency = resultSet.getString("currency");
+        int supplierId = resultSet.getInt("supplier_id");
+        int productCategoryId = resultSet.getInt("category_id");
+        Product product = new Product(id, name, defaultPrice, currency, desc, productCategoryDao.find(productCategoryId),
+                supplierDao.find(supplierId));
+        products.add(product);
+    }
+
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        List<Product> products = new ArrayList<>();
-        ProductCategoryDao productDao = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDao = new SupplierDaoJdbc();
-
         String query = "SELECT * FROM products WHERE supplier_id = ?";
+
+        List<Product> products = new ArrayList<>();
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -135,17 +134,7 @@ public class ProductDaoJdbc implements ProductDao {
             preparedStatement.setInt(1, supplier.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String desc = resultSet.getString("description");
-                float defaultPrice = resultSet.getFloat("default_price");
-                String currency = resultSet.getString("currency");
-                int supplierId = resultSet.getInt("supplier_id");
-                int productCategoryId = resultSet.getInt("category_id");
-                Product product = new Product(id, name, defaultPrice, currency, desc, productDao.find(productCategoryId)
-                        , supplierDao.find(supplierId));
-                products.add(product);
-
+                addProductsFromDb(products, resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getErrorCode());
