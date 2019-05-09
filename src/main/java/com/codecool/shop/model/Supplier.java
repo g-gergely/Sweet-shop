@@ -15,8 +15,6 @@ public class Supplier extends BaseModel {
         super(name, description);
         this.id = id;
         this.products = new ArrayList<>();
-
-
     }
 
     public void setProducts(ArrayList<Product> products) {
@@ -48,5 +46,9 @@ public class Supplier extends BaseModel {
                 this.name,
                 this.description
         );
+    }
+
+    public Supplier getDefaultSupplier() {
+        return new Supplier(-1, "No supplier", "No description");
     }
 }

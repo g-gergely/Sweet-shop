@@ -18,6 +18,9 @@ public class ProductDaoJdbc implements ProductDao {
     private static final String DB_USER = System.getenv("POSTGRES_DB_USER");
     private static final String DB_PASSWORD = System.getenv("POSTGRES_DB_PASSWORD");
 
+    private ProductCategoryDao productCategoryDao = new ProductCategoryDaoJdbc();
+    private SupplierDao supplierDao = new SupplierDaoJdbc();
+
     @Override
     public void add(Product product) {
         String query = "INSERT INTO products ( name, description, default_price, currency, supplier_id, category_id)" +
@@ -56,12 +59,11 @@ public class ProductDaoJdbc implements ProductDao {
                 String description = resultSet.getString("description");
                 Float defaulPrice = resultSet.getFloat("default_price");
                 String currency = resultSet.getString("currency");
-                int supplierId = resultSet.getInt("supplier_id");
-                Supplier supplier = null;
-                int categoryId = resultSet.getInt("category_id");
-                ProductCategory productCategory = null;
-                //todo: Complete the argument list with Supplier and Category
-                product = new Product(id, name, defaulPrice, currency, description);
+
+                ProductCategory productCategory = getCategoryBy(resultSet.getInt("category_id"));
+                Supplier supplier = getSupplierBy(resultSet.getInt("supplier_id"));
+
+                product = new Product(id, name, defaulPrice, currency, description, productCategory, supplier);
             }
         }
         catch (SQLException e) {
@@ -172,6 +174,20 @@ public class ProductDaoJdbc implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ProductCategory getCategoryBy(int categoryId) {
+        ProductCategory productCategory = productCategoryDao.find(categoryId);
+        if (productCategory == null) productCategory = productCategory.getDefaultCategory();
+
+        return productCategory;
+    }
+
+    public Supplier getSupplierBy(int supplierId) {
+        Supplier supplier = supplierDao.find(supplierId);
+        if (supplier == null) supplier = supplier.getDefaultSupplier();
+
+        return supplier;
     }
 }
 

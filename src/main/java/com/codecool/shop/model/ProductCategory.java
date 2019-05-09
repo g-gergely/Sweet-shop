@@ -40,6 +40,10 @@ public class ProductCategory extends BaseModel {
         this.products.add(product);
     }
 
+    public ProductCategory getDefaultCategory() {
+        return new ProductCategory(-1, "No category", "No department", "No description");
+    }
+
     public String toString() {
         return String.format(
                 "id: %1$d," +

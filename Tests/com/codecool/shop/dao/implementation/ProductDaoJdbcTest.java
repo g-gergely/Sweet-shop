@@ -1,39 +1,42 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductDaoJdbcTest {
-    private ProductCategory magical = new ProductCategory("Magical","Bakery","bake hard");
-    private Supplier choco = new Supplier("Choco", "All kinds of fine dark and milk chocolate.");
-    private Product product1 = new Product("Magic Cake", 10, "USD","" +
+    private ProductCategory magical = new ProductCategory(1,"Magical","Bakery","bake hard");
+    private Supplier choco = new Supplier(1, "Choco", "All kinds of fine dark and milk chocolate.");
+    private Product product1 = new Product(1, "Magic Cake", 10, "USD","" +
             "True magical experience",magical, choco);
 
-    @Test
-    public void testAddProductToDatabase(){
-        ProductDao productDao = new ProductDaoJdbc();
-        productDao.add(product1);
+    private ProductDao productDao = new ProductDaoJdbc();
+    private ProductCategoryDao productCategoryDao = new ProductCategoryDaoJdbc();
+    private SupplierDao supplierDao = new SupplierDaoJdbc();
+
+    @BeforeEach
+    public void setup() {
+        ((ProductDaoJdbc) productDao).clearProductsTable();
+        ((ProductCategoryDaoJdbc) productCategoryDao).clearCategoriesTable();
+        ((SupplierDaoJdbc) supplierDao).clearSuppliersTable();
     }
 
+    //todo: there could be a test for no supplier and no category cases.
     @Test
-    public void testFindProduct(){
-        //todo: Solve the supplier and product category problem for getting product
-        Product product1 = new Product("Magic Cake", 10, "USD","" +
-                "True magical experience");
-
-        // add product to database
-        ProductDao productDao = new ProductDaoJdbc();
-        ((ProductDaoJdbc) productDao).clearProductsTable();
+    public void testAddProductToDatabase_FindProduct(){
+        supplierDao.add(choco);
+        productCategoryDao.add(magical);
         productDao.add(product1);
-        //get product from database
+
         Product resultProduct = productDao.find(1);
-        //assert equals
-        assertEquals(product1.toStringWithoutId(), resultProduct.toStringWithoutId());
+        assertEquals(product1.toString(), resultProduct.toString());
     }
 
 }
